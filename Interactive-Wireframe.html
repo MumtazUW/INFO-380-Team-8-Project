@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Course Registration System — Wireframes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; background: #f0f0f0; color: #222; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .app-shell { background: #fff; min-height: 100vh; max-width: 1400px; margin: 0 auto; }
+  .top-header { padding: 18px 24px 10px; display: flex; align-items: flex-start; justify-content: space-between; border-bottom: 1px solid #ddd; }
+  .top-header h1 { font-size: 22px; font-weight: 600; color: #111; }
+  .role-box { border: 1px solid #aaa; padding: 6px 12px; font-size: 12px; text-align: center; min-width: 130px; }
+  .role-box .role-label { color: #555; margin-bottom: 4px; }
+  .role-btn { border: 1px solid #333; padding: 4px 14px; font-size: 13px; cursor: pointer; background: #fff; display: block; width: 100%; text-align: center; }
+  .role-btn:hover { background: #f5f5f5; }
+  .avatar-circle { width: 32px; height: 32px; border-radius: 50%; background: #e53e3e; color: white; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-left: 12px; }
+  .top-right { display: flex; align-items: center; gap: 10px; }
+  .nav-tabs { display: flex; gap: 0; padding: 10px 24px 0; border-bottom: 1px solid #ccc; }
+  .nav-tab { padding: 8px 18px; border: 1px solid #ccc; border-bottom: none; background: #fff; font-size: 13px; cursor: pointer; margin-right: 4px; color: #333; }
+  .nav-tab.active { background: #222; color: #fff; border-color: #222; }
+  .nav-tab:hover:not(.active) { background: #f5f5f5; }
+  .role-banner { background: #f0f0f0; border-bottom: 1px solid #ddd; padding: 7px 24px; font-size: 12px; color: #333; }
+  .role-banner strong { font-weight: 600; }
+  .main-panel { padding: 20px 24px; }
+  .card { border: 1px solid #ccc; border-radius: 2px; margin-bottom: 18px; background: #fff; }
+  .card-header { padding: 12px 16px; font-size: 16px; font-weight: 600; border-bottom: 1px solid #e0e0e0; }
+  .card-body { padding: 16px; }
+  input[type="text"], select { width: 100%; border: 1px solid #bbb; border-radius: 2px; padding: 8px 10px; font-size: 13px; background: #fff; color: #333; }
+  input[type="text"]:focus, select:focus { outline: 1px solid #555; }
+  .form-label { font-size: 13px; font-weight: 500; margin-bottom: 5px; display: block; color: #222; }
+  .form-group { margin-bottom: 14px; }
+  .form-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .btn { padding: 8px 16px; border: 1px solid #333; font-size: 13px; cursor: pointer; background: #fff; border-radius: 2px; transition: background 0.15s; }
+  .btn-dark { background: #222; color: #fff; border-color: #222; }
+  .btn-dark:hover { background: #444; }
+  .btn-success { background: #1a7a3e; color: #fff; border-color: #1a7a3e; cursor: default; }
+  .btn:hover:not(.btn-dark):not(.btn-success) { background: #f0f0f0; }
+  .btn-sm { padding: 5px 12px; font-size: 12px; }
+  .btn-danger { border-color: #c00; color: #c00; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 9px 10px; background: #e8e8e8; border: 1px solid #ccc; font-weight: 600; font-size: 13px; cursor: pointer; user-select: none; }
+  th:hover { background: #ddd; }
+  td { padding: 9px 10px; border: 1px solid #ddd; vertical-align: middle; }
+  tr:hover td { background: #fafafa; }
+  .table-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .table-title h3 { font-size: 15px; font-weight: 600; }
+  .badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 11px; font-weight: 700; background: #222; color: #fff; }
+  .status-enabled { background: #222; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 2px; display: inline-block; }
+  .status-disabled { background: #fff; color: #555; border: 1px solid #bbb; padding: 4px 10px; font-size: 12px; border-radius: 2px; display: inline-block; }
+  .status-pending { border: 1px solid #bbb; color: #555; padding: 4px 10px; font-size: 12px; border-radius: 2px; display: inline-block; }
+  .status-approved { background: #1a7a3e; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 2px; display: inline-block; }
+  .status-denied { background: #fff; color: #c00; border: 1px solid #f99; padding: 4px 10px; font-size: 12px; border-radius: 2px; display: inline-block; }
+  .stats-grid { display: grid; gap: 12px; }
+  .stat-box { border: 1px solid #ccc; padding: 16px; text-align: center; border-radius: 2px; }
+  .stat-num { font-size: 28px; font-weight: 700; color: #111; }
+  .stat-label { font-size: 12px; color: #666; margin-top: 3px; }
+  .schedule-grid { width: 100%; border-collapse: collapse; }
+  .schedule-grid th, .schedule-grid td { border: 1px solid #ccc; padding: 0; height: 42px; font-size: 12px; }
+  .schedule-grid th { background: #e8e8e8; text-align: center; padding: 8px; cursor: default; }
+  .time-cell { width: 52px; text-align: right; padding: 0 8px !important; background: #f5f5f5; font-size: 12px; color: #555; font-weight: 500; }
+  .cal-block { height: 100%; padding: 3px 5px; font-size: 10px; font-weight: 600; line-height: 1.3; overflow: hidden; }
+  .cal-cs { background: #dce8f5; border-left: 3px solid #3a7bd5; }
+  .cal-math { background: #d5f0e8; border-left: 3px solid #2a9d6f; }
+  .cal-phys { background: #fff0d5; border-left: 3px solid #e08a00; }
+  .cal-eng { background: #f0d5f0; border-left: 3px solid #9a3ab5; }
+  .cal-bio { background: #f0f5d5; border-left: 3px solid #6a9a00; }
+  .success-banner { background: #222; color: #fff; padding: 18px 20px; border-radius: 2px; margin-bottom: 18px; }
+  .success-banner .check-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .checkmark { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .success-banner h2 { font-size: 17px; font-weight: 600; }
+  .success-banner p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+  .success-banner .reg-date { font-size: 12px; opacity: 0.7; margin-top: 3px; }
+  .wl-summary { background: #f8f8f8; border: 1px solid #ccc; padding: 12px 16px; font-size: 13px; margin-bottom: 16px; border-radius: 2px; color: #333; }
+  .summary-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .summary-stat { border: 1px solid #ccc; padding: 20px; text-align: left; border-radius: 2px; }
+  .summary-stat .s-label { font-size: 12px; color: #777; margin-bottom: 4px; }
+  .summary-stat .s-num { font-size: 26px; font-weight: 700; color: #111; }
+  .demo-nav { background: #1a1a1a; padding: 8px 20px; display: flex; align-items: center; gap: 6px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
+  .demo-nav .dn-label { color: #aaa; font-size: 11px; margin-right: 10px; font-family: monospace; }
+  .demo-tab { padding: 5px 14px; border: 1px solid #555; border-radius: 2px; color: #ccc; font-size: 12px; cursor: pointer; background: transparent; }
+  .demo-tab.active { background: #fff; color: #111; border-color: #fff; }
+  .demo-tab:hover:not(.active) { background: #333; }
+  .role-switcher { background: #333; padding: 6px 20px; display: flex; align-items: center; gap: 10px; }
+  .role-switcher span { color: #aaa; font-size: 11px; }
+  .role-opt { padding: 3px 10px; border: 1px solid #666; border-radius: 2px; color: #ccc; font-size: 11px; cursor: pointer; background: transparent; }
+  .role-opt.active { background: #e53e3e; color: #fff; border-color: #e53e3e; }
+  .override-label { font-size: 11px; color: #555; border: 1px solid #ddd; padding: 7px 12px; margin-bottom: 14px; background: #f8f8f8; }
+  .search-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .conf-actions { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+  .empty-cell { background: #fff; }
+  .table-wrap { overflow-x: auto; }
+  .seats-full { color: #c00; font-weight: 600; }
+  .seats-low { color: #c07000; font-weight: 600; }
+  .seats-ok { color: #1a7a3e; font-weight: 600; }
+  #addMsg { margin-top: 10px; font-size: 12px; display: none; padding: 8px 12px; border-radius: 2px; background: #f0faf4; border: 1px solid #b2dfcc; }
+
+  /* ── MODAL ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal-box { background: #fff; border: 1px solid #ccc; border-radius: 2px; padding: 24px 28px; max-width: 460px; width: 90%; box-shadow: 0 4px 24px rgba(0,0,0,0.18); }
+  .modal-box h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+  .modal-box p { font-size: 13px; color: #444; margin-bottom: 18px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* ── STUDENT SCHEDULE / DEGREE MODAL ── */
+  .sched-modal { max-width: 780px; }
+  .sched-modal h3 { border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 14px; }
+  .modal-tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #ccc; }
+  .modal-tab { padding: 7px 16px; border: 1px solid #ccc; border-bottom: none; font-size: 13px; cursor: pointer; background: #fff; color: #333; margin-right: 4px; border-radius: 2px 2px 0 0; }
+  .modal-tab.active { background: #222; color: #fff; border-color: #222; }
+  .modal-pane { display: none; }
+  .modal-pane.active { display: block; }
+  .degree-section { margin-bottom: 14px; }
+  .degree-section h4 { font-size: 13px; font-weight: 600; background: #f0f0f0; padding: 6px 10px; border: 1px solid #ddd; margin-bottom: 0; }
+  .degree-row { display: grid; grid-template-columns: 2.5fr 1fr 1fr 90px; font-size: 12px; border: 1px solid #ddd; border-top: none; }
+  .degree-row.hdr { background: #e8e8e8; font-weight: 600; }
+  .degree-row > span { padding: 6px 10px; border-right: 1px solid #eee; }
+  .degree-row > span:last-child { border-right: none; }
+  .req-done { color: #1a7a3e; font-weight: 600; }
+  .req-prog { color: #c07000; font-weight: 600; }
+  .req-todo { color: #888; }
+</style>
+</head>
+<body>
+
+<!-- ── MODAL (reusable confirm dialog) ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <h3 id="modalTitle">Confirm Action</h3>
+    <p id="modalBody">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-sm btn-dark" id="modalConfirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── STUDENT SCHEDULE / DEGREE PLANNER MODAL ── -->
+<div class="modal-overlay" id="schedModalOverlay">
+  <div class="modal-box sched-modal">
+    <h3 id="schedModalTitle">Student Overview</h3>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchModalTab('tab-sched',this)">Current Schedule</button>
+      <button class="modal-tab" onclick="switchModalTab('tab-degree',this)">Degree Planner</button>
+    </div>
+    <div id="tab-sched" class="modal-pane active">
+      <div id="schedModalContent"></div>
+    </div>
+    <div id="tab-degree" class="modal-pane">
+      <div id="degreeModalContent"></div>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn btn-sm" onclick="closeSchedModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="demo-nav">
+  <span class="dn-label">GSU Interactive Wireframes · Milestone 5</span>
+  <button class="demo-tab active" onclick="showPage('p1',this)">1 · Course Search</button>
+  <button class="demo-tab" onclick="showPage('p2',this)">2 · Schedule Builder</button>
+  <button class="demo-tab" onclick="showPage('p3',this)">3 · Waitlist</button>
+  <button class="demo-tab" onclick="showPage('p4',this)">4 · Confirmation</button>
+  <button class="demo-tab" onclick="showPage('p5',this)">5 · Advisor Override</button>
+</div>
+<div class="role-switcher">
+  <span>Demo role:</span>
+  <button class="role-opt active" onclick="setRole('student',this)">Student</button>
+  <button class="role-opt" onclick="setRole('advisor',this)">Advisor / Registrar</button>
+</div>
+
+<!-- ════ PAGE 1 · COURSE SEARCH ════ -->
+<div id="p1" class="page active">
+  <div class="app-shell">
+    <div class="top-header">
+      <h1>University Course Registration System</h1>
+      <div class="top-right">
+        <div class="role-box"><div class="role-label">Demo: Select Role</div><button class="role-btn">Student</button></div>
+        <div class="avatar-circle">S</div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active">Course Search</div>
+      <div class="nav-tab" onclick="showPage('p2',null)">Schedule Builder</div>
+      <div class="nav-tab" onclick="showPage('p3',null)">Waitlist</div>
+      <div class="nav-tab" onclick="showPage('p4',null)">Confirmation</div>
+    </div>
+    <div class="role-banner"><strong>Role-Based Access:</strong> Students can access Course Search, Schedule Builder, Waitlist, and Registration Confirmation</div>
+    <div class="main-panel">
+      <div class="card">
+        <div class="card-header">Course Search &amp; Filtering</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Search by course name or instructor</label>
+            <input type="text" placeholder="Enter course or instructor name…" id="searchInput" oninput="filterCourses()">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Department</label>
+              <select id="deptFilter" onchange="filterCourses()">
+                <option value="">All Departments</option>
+                <option value="CS">Computer Science</option>
+                <option value="MATH">Mathematics</option>
+                <option value="PHYS">Physics</option>
+                <option value="ENG">English</option>
+                <option value="BIO">Biology</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <select id="timeFilter" onchange="filterCourses()">
+                <option value="">Any Time</option>
+                <option value="MWF">MWF</option>
+                <option value="TTh">TTh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Credits</label>
+              <select id="credFilter" onchange="filterCourses()">
+                <option value="">Any</option>
+                <option value="3">3 credits</option>
+                <option value="4">4 credits</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="table-title">
+            <h3 id="resultCount">Course Results (8)</h3>
+            <button class="btn btn-sm" onclick="exportCourseResults()">Export Results</button>
+          </div>
+          <div class="table-wrap">
+            <table id="courseTable">
+              <thead>
+                <tr>
+                  <th onclick="sortTable(0)">Course ↕</th>
+                  <th onclick="sortTable(1)">Instructor ↕</th>
+                  <th onclick="sortTable(2)">Time ↕</th>
+                  <th onclick="sortTable(3)">Credits ↕</th>
+                  <th onclick="sortTable(4)">Available Seats ↕</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="courseBody">
+                <tr data-dept="CS" data-time="MWF" data-cred="3" data-name="cs 101 intro to programming" data-instructor="dr. smith" data-id="cs101">
+                  <td>CS 101 – Intro to Programming</td><td>Dr. Smith</td><td>MWF 9:00–10:00</td><td>3</td>
+                  <td class="seats-ok">15/30</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-cs101" onclick="addCourse('CS 101','MWF 9:00–10:00','Room 101','cs101',this)">Add Course</button></td>
+                </tr>
+                <tr data-dept="CS" data-time="TTh" data-cred="3" data-name="cs 201 data structures" data-instructor="dr. johnson" data-id="cs201wl">
+                  <td>CS 201 – Data Structures</td><td>Dr. Johnson</td><td>TTh 11:00–12:30</td><td>3</td>
+                  <td class="seats-full">0/25</td>
+                  <td><button class="btn btn-sm" id="addbtn-cs201wl" onclick="joinWaitlist('CS 201',this)">Join Waitlist</button></td>
+                </tr>
+                <tr data-dept="MATH" data-time="MWF" data-cred="3" data-name="math 301 linear algebra" data-instructor="prof. williams" data-id="math301">
+                  <td>MATH 301 – Linear Algebra</td><td>Prof. Williams</td><td>MWF 13:00–14:00</td><td>3</td>
+                  <td class="seats-ok">8/35</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-math301" onclick="addCourse('MATH 301','MWF 13:00–14:00','Room 205','math301',this)">Add Course</button></td>
+                </tr>
+                <tr data-dept="PHYS" data-time="TTh" data-cred="4" data-name="phys 101 physics i" data-instructor="dr. brown" data-id="phys101">
+                  <td>PHYS 101 – Physics I</td><td>Dr. Brown</td><td>TTh 14:00–15:30</td><td>4</td>
+                  <td class="seats-ok">22/40</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-phys101" onclick="addCourse('PHYS 101','TTh 14:00–15:30','Lab A','phys101',this)">Add Course</button></td>
+                </tr>
+                <tr data-dept="ENG" data-time="MWF" data-cred="3" data-name="eng 201 english composition" data-instructor="prof. davis" data-id="eng201">
+                  <td>ENG 201 – English Composition</td><td>Prof. Davis</td><td>MWF 10:00–11:00</td><td>3</td>
+                  <td class="seats-ok">12/30</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-eng201" onclick="addCourse('ENG 201','MWF 10:00–11:00','Room 302','eng201',this)">Add Course</button></td>
+                </tr>
+                <tr data-dept="BIO" data-time="TTh" data-cred="3" data-name="bio 301 molecular biology" data-instructor="prof. lee" data-id="bio301c">
+                  <td>BIO 301 – Molecular Biology</td><td>Prof. Lee</td><td>TTh 9:30–11:00</td><td>3</td>
+                  <td class="seats-low">3/28</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-bio301c" onclick="addCourse('BIO 301','TTh 9:30–11:00','BIO Lab 2','bio301c',this)">Add Course</button></td>
+                </tr>
+                <tr data-dept="MATH" data-time="TTh" data-cred="3" data-name="math 220 discrete mathematics" data-instructor="prof. chen" data-id="math220wl">
+                  <td>MATH 220 – Discrete Mathematics</td><td>Prof. Chen</td><td>TTh 13:00–14:30</td><td>3</td>
+                  <td class="seats-full">0/25</td>
+                  <td><button class="btn btn-sm" id="addbtn-math220wl" onclick="joinWaitlist('MATH 220',this)">Join Waitlist</button></td>
+                </tr>
+                <tr data-dept="CS" data-time="MWF" data-cred="3" data-name="cs 410 software engineering" data-instructor="prof. patel" data-id="cs410">
+                  <td>CS 410 – Software Engineering</td><td>Prof. Patel</td><td>MWF 14:00–15:00</td><td>3</td>
+                  <td class="seats-ok">11/32</td>
+                  <td><button class="btn btn-sm btn-dark" id="addbtn-cs410" onclick="addCourse('CS 410','MWF 14:00–15:00','ENG 310','cs410',this)">Add Course</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="addMsg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PAGE 2 · SCHEDULE BUILDER ════ -->
+<div id="p2" class="page">
+  <div class="app-shell">
+    <div class="top-header">
+      <h1>University Course Registration System</h1>
+      <div class="top-right">
+        <div class="role-box"><div class="role-label">Demo: Select Role</div><button class="role-btn">Student</button></div>
+        <div class="avatar-circle">M</div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab" onclick="showPage('p1',null)">Course Search</div>
+      <div class="nav-tab active">Schedule Builder</div>
+      <div class="nav-tab" onclick="showPage('p3',null)">Waitlist</div>
+      <div class="nav-tab" onclick="showPage('p4',null)">Confirmation</div>
+    </div>
+    <div class="role-banner"><strong>Role-Based Access:</strong> Students can access Course Search, Schedule Builder, Waitlist, and Registration Confirmation</div>
+    <div class="main-panel">
+      <div class="card">
+        <div class="card-header">Schedule Builder</div>
+        <div class="card-body">
+          <div id="conflictBanner" style="display:none;background:#fff0f0;border:1px solid #f99;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#c00;border-radius:2px">
+            ⚠ <strong>Scheduling Conflict Detected</strong> — Two courses overlap on the same day and time. Please remove one before confirming.
+          </div>
+          <p style="font-size:13px;color:#555;margin-bottom:12px"><em>Weekly Schedule — courses added from Course Search appear below</em></p>
+          <div class="table-wrap">
+            <table class="schedule-grid">
+              <thead>
+                <tr><th style="width:52px">Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>
+              </thead>
+              <tbody id="schedBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:10px">Selected Courses</h3>
+          <table>
+            <thead>
+              <tr><th>Course</th><th>Time</th><th>Location</th><th>Credits</th><th>Remove</th></tr>
+            </thead>
+            <tbody id="selectedBody"></tbody>
+          </table>
+          <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-dark" onclick="confirmRegistration()">Confirm &amp; Register →</button>
+            <button class="btn" id="savePlanBtn" onclick="savePlan(this)">Save Plan</button>
+            <span style="font-size:12px;color:#555">Total Credits: <strong id="creditCount">0</strong> / 18 max</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PAGE 3 · WAITLIST ════ -->
+<div id="p3" class="page">
+  <div class="app-shell">
+    <div class="top-header">
+      <h1>University Course Registration System</h1>
+      <div class="top-right">
+        <div class="role-box"><div class="role-label">Demo: Select Role</div><button class="role-btn">Student</button></div>
+        <div class="avatar-circle">M</div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab" onclick="showPage('p1',null)">Course Search</div>
+      <div class="nav-tab" onclick="showPage('p2',null)">Schedule Builder</div>
+      <div class="nav-tab active">Waitlist</div>
+      <div class="nav-tab" onclick="showPage('p4',null)">Confirmation</div>
+    </div>
+    <div class="role-banner"><strong>Role-Based Access:</strong> Students can access Course Search, Schedule Builder, Waitlist, and Registration Confirmation</div>
+    <div class="main-panel">
+      <div class="card">
+        <div class="card-header">Waitlist Status Dashboard</div>
+        <div class="card-body">
+          <div class="wl-summary">You are currently on the waitlist for <span id="wlCount">4</span> courses. We will notify you if a spot becomes available.</div>
+          <div class="table-title"><h3>Waitlisted Courses</h3></div>
+          <table>
+            <thead>
+              <tr><th>Course</th><th>Waitlist Position</th><th>Probability of Enrollment</th><th>Notifications</th><th>Action</th></tr>
+            </thead>
+            <tbody id="wlBody">
+              <tr id="wlr-cs201"><td>CS 201 – Data Structures</td><td><span class="badge">#3</span></td><td>High (85%)</td>
+                <td><button class="btn btn-sm" onclick="toggleNotif(this)" data-on="true"><span class="status-enabled">Enabled</span></button></td>
+                <td><button class="btn btn-sm" onclick="leaveWL('cs201','CS 201')">Leave Waitlist</button></td></tr>
+              <tr id="wlr-bio301"><td>BIO 301 – Molecular Biology</td><td><span class="badge">#12</span></td><td>Medium (45%)</td>
+                <td><button class="btn btn-sm" onclick="toggleNotif(this)" data-on="true"><span class="status-enabled">Enabled</span></button></td>
+                <td><button class="btn btn-sm" onclick="leaveWL('bio301','BIO 301')">Leave Waitlist</button></td></tr>
+              <tr id="wlr-econ101"><td>ECON 101 – Microeconomics</td><td><span class="badge">#8</span></td><td>Medium (60%)</td>
+                <td><button class="btn btn-sm" onclick="toggleNotif(this)" data-on="false"><span class="status-disabled">Disabled</span></button></td>
+                <td><button class="btn btn-sm" onclick="leaveWL('econ101','ECON 101')">Leave Waitlist</button></td></tr>
+              <tr id="wlr-art205"><td>ART 205 – Digital Design</td><td><span class="badge">#2</span></td><td>Very High (95%)</td>
+                <td><button class="btn btn-sm" onclick="toggleNotif(this)" data-on="true"><span class="status-enabled">Enabled</span></button></td>
+                <td><button class="btn btn-sm" onclick="leaveWL('art205','ART 205')">Leave Waitlist</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Waitlist Statistics</h3>
+          <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="stat-box"><div class="stat-num" id="wlTotal">4</div><div class="stat-label">Total Waitlisted</div></div>
+            <div class="stat-box"><div class="stat-num" id="wlHighProb">2</div><div class="stat-label">High Probability</div></div>
+            <div class="stat-box"><div class="stat-num" id="wlAvgPos">5.75</div><div class="stat-label">Average Position</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PAGE 4 · CONFIRMATION ════ -->
+<div id="p4" class="page">
+  <div class="app-shell">
+    <div class="top-header">
+      <h1>University Course Registration System</h1>
+      <div class="top-right">
+        <div class="role-box"><div class="role-label">Demo: Select Role</div><button class="role-btn">Student</button></div>
+        <div class="avatar-circle">M</div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab" onclick="showPage('p1',null)">Course Search</div>
+      <div class="nav-tab" onclick="showPage('p2',null)">Schedule Builder</div>
+      <div class="nav-tab" onclick="showPage('p3',null)">Waitlist</div>
+      <div class="nav-tab active">Confirmation</div>
+    </div>
+    <div class="role-banner"><strong>Role-Based Access:</strong> Students can access Course Search, Schedule Builder, Waitlist, and Registration Confirmation</div>
+    <div class="main-panel">
+      <div class="card">
+        <div class="card-header">Registration Confirmation</div>
+        <div class="card-body">
+          <div class="success-banner" id="successBanner" style="display:none;">
+            <div class="check-row">
+              <div class="checkmark">✓</div>
+              <h2>Registration Successful!</h2>
+            </div>
+            <p id="confSummaryText">Your course registration has been confirmed.</p>
+            <div class="reg-date" id="confRegDate"></div>
+          </div>
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:10px">Enrolled Courses</h3>
+          <table>
+            <thead><tr><th>Course</th><th>Instructor</th><th>Time</th><th>Location</th><th>Credits</th></tr></thead>
+            <tbody id="confBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Registration Summary</h3>
+          <div class="summary-2col">
+            <div class="summary-stat"><div class="s-label">Total Courses</div><div class="s-num" id="confCourseCount">0</div></div>
+            <div class="summary-stat"><div class="s-label">Total Credits</div><div class="s-num" id="confCredits">0</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:10px">Actions</h3>
+          <div class="conf-actions">
+            <button class="btn btn-dark" onclick="confirmAction('download')">⬇ Download Schedule as PDF</button>
+            <button class="btn" onclick="confirmAction('email')">✉ Email Schedule</button>
+            <button class="btn" onclick="confirmAction('print')">🖨 Print Schedule</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PAGE 5 · ADVISOR OVERRIDE ════ -->
+<div id="p5" class="page">
+  <div class="app-shell">
+    <div class="top-header" style="background:#f8f8f8">
+      <div>
+        <div style="font-size:11px;color:#888;margin-bottom:4px">Advisor Override Dashboard (Advisor Role)</div>
+        <h1>University Course Registration System</h1>
+      </div>
+      <div class="top-right">
+        <div class="role-box"><div class="role-label">Demo: Select Role</div><button class="role-btn">Advisor/Registrar</button></div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active">Advisor Override</div>
+    </div>
+    <div class="role-banner"><strong>Role-Based Access:</strong> Advisors/Registrar staff can access Advisor Override Dashboard (role-based access control)</div>
+    <div class="main-panel">
+      <div class="card">
+        <div class="card-header">Advisor Override Dashboard</div>
+        <div class="card-body">
+          <div class="override-label">Note: This page is only visible for advisor or registrar roles (role-based access control)</div>
+          <div class="search-2col">
+            <div>
+              <label class="form-label">Search by Student ID or Name</label>
+              <input type="text" placeholder="Enter student ID or name…" id="overrideSearch" oninput="filterOverrides()">
+            </div>
+            <div>
+              <label class="form-label">Filter by Status</label>
+              <select id="overrideStatus" onchange="filterOverrides()">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Denied">Denied</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-title">
+            <h3 id="overrideCount">Override Requests (3)</h3>
+            <button class="btn btn-sm" onclick="exportReport()">Export Report</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Student</th><th>Requested Course</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="overrideBody">
+              <tr data-name="john smith" data-id="12345" data-status="Pending">
+                <td>
+                  John Smith (ID: 12345)<br><small style="color:#777">Mar 1, 2026</small><br>
+                  <button class="btn btn-sm" style="margin-top:5px;font-size:11px" onclick="viewStudentSchedule('John Smith','12345')">View Schedule</button>
+                </td>
+                <td>CS 301 – Advanced Algorithms</td>
+                <td>Prerequisites completed</td>
+                <td><span class="status-pending" id="os-12345">Pending</span></td>
+                <td>
+                  <button class="btn btn-sm btn-dark" onclick="approveOverride('12345')">Approve</button>
+                  <button class="btn btn-sm btn-danger" onclick="denyOverride('12345')" style="margin-left:4px">Deny</button>
+                </td>
+              </tr>
+              <tr data-name="jane doe" data-id="23456" data-status="Pending">
+                <td>
+                  Jane Doe (ID: 23456)<br><small style="color:#777">Mar 2, 2026</small><br>
+                  <button class="btn btn-sm" style="margin-top:5px;font-size:11px" onclick="viewStudentSchedule('Jane Doe','23456')">View Schedule</button>
+                </td>
+                <td>PHYS 401 – Quantum Mechanics</td>
+                <td>Advisor approval for early enrollment</td>
+                <td><span class="status-pending" id="os-23456">Pending</span></td>
+                <td>
+                  <button class="btn btn-sm btn-dark" onclick="approveOverride('23456')">Approve</button>
+                  <button class="btn btn-sm btn-danger" onclick="denyOverride('23456')" style="margin-left:4px">Deny</button>
+                </td>
+              </tr>
+              <tr data-name="michael chen" data-id="34567" data-status="Pending">
+                <td>
+                  Michael Chen (ID: 34567)<br><small style="color:#777">Mar 3, 2026</small><br>
+                  <button class="btn btn-sm" style="margin-top:5px;font-size:11px" onclick="viewStudentSchedule('Michael Chen','34567')">View Schedule</button>
+                </td>
+                <td>BIO 201 – Genetics</td>
+                <td>Course full – special circumstances</td>
+                <td><span class="status-pending" id="os-34567">Pending</span></td>
+                <td>
+                  <button class="btn btn-sm btn-dark" onclick="approveOverride('34567')">Approve</button>
+                  <button class="btn btn-sm btn-danger" onclick="denyOverride('34567')" style="margin-left:4px">Deny</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STATS - built dynamically so Denied only shows when > 0 -->
+      <div class="card">
+        <div class="card-body">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Request Statistics</h3>
+          <div id="statsGrid" class="stats-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───
+var instructorMap = {
+  'CS 101':'Dr. Smith','MATH 301':'Prof. Williams','PHYS 101':'Dr. Brown',
+  'ENG 201':'Prof. Davis','BIO 301':'Prof. Lee','CS 410':'Prof. Patel',
+  'MATH 220':'Prof. Chen','CS 201':'Dr. Johnson'
+};
+var creditMap = {
+  'CS 101':3,'MATH 301':3,'PHYS 101':4,'ENG 201':3,'BIO 301':3,
+  'CS 410':3,'MATH 220':3,'CS 201':3
+};
+
+// sample schedules for each student in override dashboard
+var studentSchedules = {
+  '12345': {
+    name: 'John Smith',
+    courses: [
+      {code:'CS 101', title:'Intro to Programming', time:'MWF 9:00–10:00', loc:'Room 101', cred:3},
+      {code:'MATH 301', title:'Linear Algebra', time:'MWF 13:00–14:00', loc:'Room 205', cred:3},
+      {code:'ENG 201', title:'English Composition', time:'MWF 10:00–11:00', loc:'Room 302', cred:3},
+    ]
+  },
+  '23456': {
+    name: 'Jane Doe',
+    courses: [
+      {code:'PHYS 101', title:'Physics I', time:'TTh 14:00–15:30', loc:'Lab A', cred:4},
+      {code:'MATH 220', title:'Discrete Mathematics', time:'TTh 13:00–14:30', loc:'Room 110', cred:3},
+      {code:'CS 101', title:'Intro to Programming', time:'MWF 9:00–10:00', loc:'Room 101', cred:3},
+    ]
+  },
+  '34567': {
+    name: 'Michael Chen',
+    courses: [
+      {code:'BIO 301', title:'Molecular Biology', time:'TTh 9:30–11:00', loc:'BIO Lab 2', cred:3},
+      {code:'CS 410', title:'Software Engineering', time:'MWF 14:00–15:00', loc:'ENG 310', cred:3},
+      {code:'ENG 201', title:'English Composition', time:'MWF 10:00–11:00', loc:'Room 302', cred:3},
+    ]
+  }
+};
+
+// ─── CART ───
+var cart = [
+  {code:'CS 101', time:'MWF 9:00–10:00', loc:'Room 101', id:'cs101'},
+  {code:'MATH 301', time:'MWF 13:00–14:00', loc:'Room 205', id:'math301'},
+  {code:'PHYS 101', time:'TTh 14:00–15:30', loc:'Lab A', id:'phys101'},
+];
+
+// ─── OVERRIDE STATS ───
+var overrideTotal = 5, overridePending = 3, overrideApproved = 0, overrideDenied = 0;
+
+// ─── PAGE SWITCHER ───
+function showPage(id, tabEl) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.demo-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (tabEl) {
+    tabEl.classList.add('active');
+  } else {
+    var idx = ['p1','p2','p3','p4','p5','p6'].indexOf(id);
+    if (idx >= 0) document.querySelectorAll('.demo-tab')[idx].classList.add('active');
+  }
+  if (id === 'p2') { buildScheduleGrid(); updateSelectedList(); updateCredits(); }
+  if (id === 'p4') { buildConfirmation(); }
+  if (id === 'p5') { renderOverrideStats(); }
+  window.scrollTo(0,0);
+}
+
+// ─── ROLE SWITCHER ───
+function setRole(role, btn) {
+  document.querySelectorAll('.role-opt').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  if (role === 'advisor') showPage('p5', document.querySelectorAll('.demo-tab')[4]);
+  else showPage('p1', document.querySelectorAll('.demo-tab')[0]);
+}
+
+// ─── COURSE SEARCH FILTER ───
+function filterCourses() {
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  var dept = document.getElementById('deptFilter').value;
+  var time = document.getElementById('timeFilter').value;
+  var cred = document.getElementById('credFilter').value;
+  var rows = document.querySelectorAll('#courseBody tr');
+  var count = 0;
+  rows.forEach(function(row) {
+    var name = row.dataset.name || '';
+    var instructor = row.dataset.instructor || '';
+    var textMatch = !q || name.includes(q) || instructor.includes(q);
+    var match = textMatch
+      && (!dept || row.dataset.dept === dept)
+      && (!time || row.dataset.time === time)
+      && (!cred || row.dataset.cred === cred);
+    row.style.display = match ? '' : 'none';
+    if (match) count++;
+  });
+  document.getElementById('resultCount').textContent = 'Course Results (' + count + ')';
+}
+
+// ─── SORT TABLE ───
+var sortDir = {};
+function sortTable(col) {
+  var tbody = document.getElementById('courseBody');
+  var rows = Array.from(tbody.querySelectorAll('tr'));
+  sortDir[col] = !sortDir[col];
+  rows.sort(function(a,b) {
+    var av = a.cells[col] ? a.cells[col].textContent.trim() : '';
+    var bv = b.cells[col] ? b.cells[col].textContent.trim() : '';
+    return sortDir[col] ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+  rows.forEach(function(r){ tbody.appendChild(r); });
+}
+
+// ─── ADD COURSE (button changes to "Added ✓") ───
+function addCourse(name, time, loc, rowId, btn) {
+  var id = name.replace(/\s+/g,'').toLowerCase();
+  if (cart.find(function(c){ return c.id === id; })) {
+    // already in cart — mark button
+    btn.textContent = 'Added ✓';
+    btn.className = 'btn btn-sm btn-success';
+    btn.disabled = true;
+    return;
+  }
+  cart.push({code:name, time:time, loc:loc, id:id});
+  btn.textContent = 'Added ✓';
+  btn.className = 'btn btn-sm btn-success';
+  btn.disabled = true;
+  showMsg('✓ ' + name + ' added to your schedule. Go to Schedule Builder to view.');
+}
+
+// ─── JOIN WAITLIST (button changes to "On Waitlist ✓") ───
+function joinWaitlist(name, btn) {
+  btn.textContent = 'On Waitlist ✓';
+  btn.className = 'btn btn-sm btn-success';
+  btn.disabled = true;
+  showMsg('✓ Added to waitlist for ' + name + '. Check the Waitlist page for your position.');
+}
+
+function showMsg(msg) {
+  var el = document.getElementById('addMsg');
+  el.style.display = 'block';
+  el.textContent = msg;
+  clearTimeout(window._msgTimer);
+  window._msgTimer = setTimeout(function(){ el.style.display='none'; }, 4000);
+}
+
+// ─── SAVE PLAN ───
+function savePlan(btn) {
+  btn.textContent = 'Saved ✓';
+  btn.className = 'btn btn-success';
+  btn.disabled = true;
+  setTimeout(function(){
+    btn.textContent = 'Save Plan';
+    btn.className = 'btn';
+    btn.disabled = false;
+  }, 4000);
+}
+
+// ─── SCHEDULE GRID ───
+var timeSlots = ['8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+var courseSlotMap = {
+  'cs101':   {days:[0,2,4], startSlot:1, span:1, color:'cal-cs'},
+  'math301': {days:[0,2,4], startSlot:5, span:1, color:'cal-math'},
+  'phys101': {days:[1,3],   startSlot:6, span:2, color:'cal-phys'},
+  'eng201':  {days:[0,2,4], startSlot:2, span:1, color:'cal-eng'},
+  'bio301c': {days:[1,3],   startSlot:1, span:2, color:'cal-bio'},
+  'cs410':   {days:[0,2,4], startSlot:6, span:1, color:'cal-cs'},
+  'math220': {days:[1,3],   startSlot:5, span:1, color:'cal-math'},
+};
+
+function buildScheduleGrid() {
+  var tbody = document.getElementById('schedBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  var activeIds = cart.map(function(c){ return c.id; });
+  timeSlots.forEach(function(t, si) {
+    var tr = document.createElement('tr');
+    var timeTd = document.createElement('td');
+    timeTd.className = 'time-cell';
+    timeTd.textContent = t;
+    tr.appendChild(timeTd);
+    for (var di = 0; di < 5; di++) {
+      var td = document.createElement('td');
+      td.className = 'empty-cell';
+      for (var ci = 0; ci < activeIds.length; ci++) {
+        var cid = activeIds[ci];
+        var slot = courseSlotMap[cid];
+        if (!slot) continue;
+        if (slot.days.indexOf(di) >= 0 && slot.startSlot === si) {
+          var div = document.createElement('div');
+          div.className = 'cal-block ' + slot.color;
+          div.style.height = (42 * slot.span - 4) + 'px';
+          var co = cart.find(function(c){ return c.id === cid; });
+          div.textContent = co ? co.code : cid;
+          if (slot.span > 1) td.style.height = (42 * slot.span) + 'px';
+          td.appendChild(div);
+        }
+      }
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+  checkConflicts();
+}
+
+function checkConflicts() {
+  var banner = document.getElementById('conflictBanner');
+  if (!banner) return;
+  var conflict = false;
+  var activeIds = cart.map(function(c){ return c.id; });
+  for (var si = 0; si < timeSlots.length && !conflict; si++) {
+    for (var di = 0; di < 5 && !conflict; di++) {
+      var hits = activeIds.filter(function(cid) {
+        var s = courseSlotMap[cid];
+        return s && s.days.indexOf(di) >= 0 && s.startSlot === si;
+      });
+      if (hits.length > 1) conflict = true;
+    }
+  }
+  banner.style.display = conflict ? 'block' : 'none';
+}
+
+function updateSelectedList() {
+  var tbody = document.getElementById('selectedBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  cart.forEach(function(c) {
+    var tr = document.createElement('tr');
+    tr.id = 'sr-' + c.id;
+    var cred = creditMap[c.code] || 3;
+    tr.innerHTML = '<td>' + c.code + '</td><td>' + c.time + '</td><td>' + c.loc + '</td><td>' + cred + '</td>'
+      + '<td><button class="btn btn-sm btn-danger" onclick="removeCourse(\'' + c.id + '\')">Remove</button></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function updateCredits() {
+  var total = 0;
+  cart.forEach(function(c){ total += creditMap[c.code] || 3; });
+  var el = document.getElementById('creditCount');
+  if (el) el.textContent = total;
+}
+
+function removeCourse(id) {
+  cart = cart.filter(function(c){ return c.id !== id; });
+  buildScheduleGrid();
+  updateSelectedList();
+  updateCredits();
+  // re-enable the add button on course search if it exists
+  var btn = document.getElementById('addbtn-' + id);
+  if (btn) {
+    btn.textContent = 'Add Course';
+    btn.className = 'btn btn-sm btn-dark';
+    btn.disabled = false;
+  }
+}
+
+// ─── CONFIRMATION ───
+function buildConfirmation() {
+  var tbody = document.getElementById('confBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  var totalCred = 0;
+  cart.forEach(function(c) {
+    var tr = document.createElement('tr');
+    var inst = instructorMap[c.code] || '—';
+    var cred = creditMap[c.code] || 3;
+    tr.innerHTML = '<td>' + c.code + '</td><td>' + inst + '</td><td>' + c.time + '</td><td>' + c.loc + '</td><td>' + cred + '</td>';
+    tbody.appendChild(tr);
+    totalCred += cred;
+  });
+  document.getElementById('confCourseCount').textContent = cart.length;
+  document.getElementById('confCredits').textContent = totalCred;
+  document.getElementById('confSummaryText').textContent =
+    'Your course registration has been confirmed. You are enrolled in ' + cart.length +
+    ' course' + (cart.length !== 1 ? 's' : '') + ' totaling ' + totalCred + ' credits for the Spring 2026 semester.';
+
+  // live date/time
+  var now = new Date();
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  var h = now.getHours(), m = now.getMinutes();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  var timeStr = h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+  var conf = 'REG-' + now.getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
+  document.getElementById('confRegDate').textContent =
+    'Registration Date: ' + dateStr + ' at ' + timeStr + '  ·  Confirmation #: ' + conf;
+}
+
+function confirmRegistration() {
+  showPage('p4', null);      // open confirmation page
+  buildConfirmation();       // build confirmation details
+
+  var banner = document.getElementById('successBanner');
+  banner.style.display = 'block';
+
+  setTimeout(function () {
+    banner.style.display = 'none';
+  }, 5000);
+}
+
+// ─── CONFIRMATION ACTION BUTTONS ───
+function confirmAction(type) {
+  var titles = {download:'Download Schedule as PDF', email:'Email Schedule', print:'Print Schedule'};
+  var bodies = {
+    download:'This will generate and download a PDF of your current schedule. Proceed?',
+    email:'This will send your schedule to your registered university email address. Proceed?',
+    print:'This will open the print dialog for your schedule. Proceed?'
+  };
+  openModal(titles[type], bodies[type], function() {
+    if (type === 'download') {
+      alert('✓ Your schedule PDF has been generated and downloaded.');
+    } else if (type === 'email') {
+      alert('✓ Your schedule has been emailed to your university address on file.');
+    } else if (type === 'print') {
+      window.print();
+    }
+  });
+}
+
+// ─── MODAL ───
+var _modalCallback = null;
+function openModal(title, body, onConfirm) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').textContent = body;
+  _modalCallback = onConfirm;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  _modalCallback = null;
+}
+document.getElementById('modalConfirmBtn').addEventListener('click', function() {
+  closeModal();
+  if (_modalCallback) _modalCallback();
+});
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ─── STUDENT SCHEDULE + DEGREE PLANNER VIEWER ───
+var degreePlans = {
+  'CS': {
+    label: 'B.S. Computer Science',
+    totalRequired: 120,
+    sections: [
+      { title: 'Core CS Requirements', courses: [
+        {code:'CS 101', name:'Intro to Programming', credits:3, status:'done'},
+        {code:'CS 201', name:'Data Structures', credits:3, status:'inprog'},
+        {code:'CS 301', name:'Advanced Algorithms', credits:3, status:'todo'},
+        {code:'CS 410', name:'Software Engineering', credits:3, status:'done'},
+        {code:'CS 450', name:'Operating Systems', credits:3, status:'todo'},
+      ]},
+      { title: 'Mathematics Requirements', courses: [
+        {code:'MATH 220', name:'Discrete Mathematics', credits:3, status:'done'},
+        {code:'MATH 301', name:'Linear Algebra', credits:3, status:'inprog'},
+        {code:'MATH 350', name:'Probability & Statistics', credits:3, status:'todo'},
+      ]},
+      { title: 'General Education', courses: [
+        {code:'ENG 201', name:'English Composition', credits:3, status:'done'},
+        {code:'PHYS 101', name:'Physics I', credits:4, status:'done'},
+        {code:'PHYS 102', name:'Physics II', credits:4, status:'todo'},
+      ]},
+    ]
+  },
+  'BIO': {
+    label: 'B.S. Biology',
+    totalRequired: 122,
+    sections: [
+      { title: 'Core Biology Requirements', courses: [
+        {code:'BIO 101', name:'Intro to Biology', credits:3, status:'done'},
+        {code:'BIO 201', name:'Genetics', credits:3, status:'inprog'},
+        {code:'BIO 301', name:'Molecular Biology', credits:3, status:'done'},
+        {code:'BIO 401', name:'Cell Biology', credits:3, status:'todo'},
+        {code:'BIO 410', name:'Ecology', credits:3, status:'todo'},
+      ]},
+      { title: 'Chemistry Requirements', courses: [
+        {code:'CHEM 101', name:'General Chemistry I', credits:4, status:'done'},
+        {code:'CHEM 102', name:'General Chemistry II', credits:4, status:'done'},
+        {code:'CHEM 301', name:'Organic Chemistry', credits:4, status:'todo'},
+      ]},
+      { title: 'General Education', courses: [
+        {code:'ENG 201', name:'English Composition', credits:3, status:'done'},
+        {code:'MATH 150', name:'Calculus I', credits:4, status:'done'},
+        {code:'PHYS 101', name:'Physics I', credits:4, status:'inprog'},
+      ]},
+    ]
+  },
+  'PHYS': {
+    label: 'B.S. Physics',
+    totalRequired: 124,
+    sections: [
+      { title: 'Core Physics Requirements', courses: [
+        {code:'PHYS 101', name:'Physics I', credits:4, status:'done'},
+        {code:'PHYS 102', name:'Physics II', credits:4, status:'done'},
+        {code:'PHYS 301', name:'Classical Mechanics', credits:3, status:'inprog'},
+        {code:'PHYS 401', name:'Quantum Mechanics', credits:3, status:'todo'},
+        {code:'PHYS 450', name:'Electrodynamics', credits:3, status:'todo'},
+      ]},
+      { title: 'Mathematics Requirements', courses: [
+        {code:'MATH 150', name:'Calculus I', credits:4, status:'done'},
+        {code:'MATH 250', name:'Calculus II', credits:4, status:'done'},
+        {code:'MATH 301', name:'Linear Algebra', credits:3, status:'inprog'},
+        {code:'MATH 350', name:'Differential Equations', credits:3, status:'todo'},
+      ]},
+      { title: 'General Education', courses: [
+        {code:'ENG 201', name:'English Composition', credits:3, status:'done'},
+        {code:'CS 101', name:'Intro to Programming', credits:3, status:'done'},
+      ]},
+    ]
+  }
+};
+
+var studentMajors = { '12345':'CS', '23456':'PHYS', '34567':'BIO' };
+
+function switchModalTab(tabId, btn) {
+  document.querySelectorAll('.modal-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.modal-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function viewStudentSchedule(name, id) {
+  var data = studentSchedules[id];
+  if (!data) return;
+
+  // reset tabs to first tab
+  document.querySelectorAll('.modal-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.modal-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-sched').classList.add('active');
+  document.querySelector('.modal-tab').classList.add('active');
+
+  // build schedule tab
+  var totalCred = data.courses.reduce(function(s,c){ return s+c.cred; }, 0);
+  var html = '<p style="font-size:13px;color:#555;margin-bottom:12px">Student ID: ' + id + ' &nbsp;·&nbsp; Credits This Term: <strong>' + totalCred + '</strong></p>';
+  html += '<table><thead><tr><th>Course Code</th><th>Title</th><th>Time</th><th>Location</th><th>Credits</th></tr></thead><tbody>';
+  data.courses.forEach(function(c) {
+    html += '<tr><td>' + c.code + '</td><td>' + c.title + '</td><td>' + c.time + '</td><td>' + c.loc + '</td><td>' + c.cred + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('schedModalContent').innerHTML = html;
+
+  // build degree planner tab
+  var majorKey = studentMajors[id] || 'CS';
+  var plan = degreePlans[majorKey];
+  var doneCredits = 0, progCredits = 0, totalPlanCredits = 0;
+  plan.sections.forEach(function(sec){
+    sec.courses.forEach(function(c){
+      totalPlanCredits += c.credits;
+      if (c.status === 'done') doneCredits += c.credits;
+      else if (c.status === 'inprog') progCredits += c.credits;
+    });
+  });
+  var pct = Math.round((doneCredits / plan.totalRequired) * 100);
+
+  var dhtml = '<p style="font-size:13px;color:#555;margin-bottom:4px"><strong>' + plan.label + '</strong> &nbsp;·&nbsp; Required: ' + plan.totalRequired + ' credits</p>';
+  dhtml += '<div style="background:#eee;border-radius:2px;height:10px;margin-bottom:14px"><div style="background:#1a7a3e;height:10px;border-radius:2px;width:' + pct + '%"></div></div>';
+  dhtml += '<p style="font-size:12px;color:#555;margin-bottom:14px">Completed: <strong class="req-done">' + doneCredits + ' cr</strong> &nbsp;·&nbsp; In Progress: <strong class="req-prog">' + progCredits + ' cr</strong> &nbsp;·&nbsp; Progress: <strong>' + pct + '%</strong></p>';
+
+  plan.sections.forEach(function(sec) {
+    dhtml += '<div class="degree-section"><h4>' + sec.title + '</h4>';
+    dhtml += '<div class="degree-row hdr"><span>Course</span><span>Credits</span><span>Status</span><span>Completed</span></div>';
+    sec.courses.forEach(function(c) {
+      var statusLabel = c.status === 'done' ? '<span class="req-done">✓ Completed</span>'
+        : c.status === 'inprog' ? '<span class="req-prog">⟳ In Progress</span>'
+        : '<span class="req-todo">— Not Started</span>';
+      var doneCol = c.status === 'done' ? '<span class="req-done">✓</span>' : '<span style="color:#bbb">—</span>';
+      dhtml += '<div class="degree-row"><span>' + c.code + ' – ' + c.name + '</span><span>' + c.credits + '</span><span>' + statusLabel + '</span><span>' + doneCol + '</span></div>';
+    });
+    dhtml += '</div>';
+  });
+  document.getElementById('degreeModalContent').innerHTML = dhtml;
+
+  document.getElementById('schedModalTitle').textContent = name + ' (ID: ' + id + ')';
+  document.getElementById('schedModalOverlay').classList.add('open');
+}
+
+function closeSchedModal() {
+  document.getElementById('schedModalOverlay').classList.remove('open');
+}
+document.getElementById('schedModalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeSchedModal();
+});
+
+// ─── EXPORT COURSE RESULTS (with confirmation) ───
+function exportCourseResults() {
+  openModal('Export Course Results', 'This will download a CSV of the currently visible course search results. Proceed?', function() {
+    var lines = ['Course,Instructor,Time,Credits,Available Seats'];
+    document.querySelectorAll('#courseBody tr').forEach(function(row) {
+      if (row.style.display === 'none') return;
+      var cells = row.cells;
+      if (cells.length < 5) return;
+      lines.push(
+        '"' + cells[0].textContent.trim() + '",' +
+        '"' + cells[1].textContent.trim() + '",' +
+        '"' + cells[2].textContent.trim() + '",' +
+        cells[3].textContent.trim() + ',' +
+        cells[4].textContent.trim()
+      );
+    });
+    var blob = new Blob([lines.join('\n')], {type:'text/csv'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a'); a.href=url; a.download='course_results.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+// ─── WAITLIST ───
+function leaveWL(id, name) {
+  if (!confirm('Leave waitlist for ' + name + '?')) return;
+  var row = document.getElementById('wlr-' + id);
+  if (row) row.remove();
+  updateWLStats();
+}
+function toggleNotif(btn) {
+  var isOn = btn.dataset.on === 'true';
+  btn.dataset.on = isOn ? 'false' : 'true';
+  btn.innerHTML = isOn ? '<span class="status-disabled">Disabled</span>' : '<span class="status-enabled">Enabled</span>';
+}
+function updateWLStats() {
+  var rows = document.querySelectorAll('#wlBody tr');
+  var remaining = rows.length;
+  document.getElementById('wlCount').textContent = remaining;
+  document.getElementById('wlTotal').textContent = remaining;
+  var highProb = 0, totalPos = 0;
+  rows.forEach(function(row) {
+    var prob = row.cells[2] ? row.cells[2].textContent : '';
+    if (prob.toLowerCase().indexOf('high') >= 0) highProb++;
+    var pos = row.cells[1] ? row.cells[1].textContent.replace(/[^0-9]/g,'') : '0';
+    totalPos += parseInt(pos) || 0;
+  });
+  document.getElementById('wlHighProb').textContent = highProb;
+  document.getElementById('wlAvgPos').textContent = remaining > 0 ? (totalPos/remaining).toFixed(2) : '0';
+}
+
+// ─── OVERRIDE DASHBOARD ───
+function approveOverride(id) {
+  var el = document.getElementById('os-' + id);
+  if (!el || el.textContent !== 'Pending') return;
+  el.className = 'status-approved'; el.textContent = 'Approved';
+  el.closest('tr').dataset.status = 'Approved';
+  el.closest('tr').querySelectorAll('button[onclick*="approveOverride"],button[onclick*="denyOverride"]').forEach(function(b){ b.disabled=true; });
+  overridePending--; overrideApproved++;
+  renderOverrideStats(); filterOverrides();
+}
+function denyOverride(id) {
+  var el = document.getElementById('os-' + id);
+  if (!el || el.textContent !== 'Pending') return;
+  el.className = 'status-denied'; el.textContent = 'Denied';
+  el.closest('tr').dataset.status = 'Denied';
+  el.closest('tr').querySelectorAll('button[onclick*="approveOverride"],button[onclick*="denyOverride"]').forEach(function(b){ b.disabled=true; });
+  overridePending--; overrideDenied++;
+  renderOverrideStats(); filterOverrides();
+}
+
+function renderOverrideStats() {
+  var grid = document.getElementById('statsGrid');
+  if (!grid) return;
+  // always show Total, Pending, Approved; only show Denied if > 0
+  var cols = 3 + (overrideDenied > 0 ? 1 : 0);
+  grid.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+  var html = '<div class="stat-box"><div class="stat-num">' + overrideTotal + '</div><div class="stat-label">Total Requests</div></div>'
+    + '<div class="stat-box"><div class="stat-num">' + overridePending + '</div><div class="stat-label">Pending</div></div>'
+    + '<div class="stat-box"><div class="stat-num">' + overrideApproved + '</div><div class="stat-label">Approved</div></div>'
+    + '<div class="stat-box"><div class="stat-num">' + overrideDenied + '</div><div class="stat-label">Denied</div></div>';
+  grid.innerHTML = html;
+}
+
+function filterOverrides() {
+  var q = document.getElementById('overrideSearch').value.toLowerCase().trim();
+  var status = document.getElementById('overrideStatus').value;
+  var count = 0;
+  document.querySelectorAll('#overrideBody tr').forEach(function(row) {
+    var name = (row.dataset.name || '').toLowerCase();
+    var sid = (row.dataset.id || '').toLowerCase();
+    var rowStatus = row.dataset.status || 'Pending';
+    var show = (!q || name.includes(q) || sid.includes(q)) && (!status || rowStatus === status);
+    row.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  document.getElementById('overrideCount').textContent = 'Override Requests (' + count + ')';
+}
+
+// ─── EXPORT REPORT ───
+function exportReport() {
+  openModal('Export Override Report', 'This will generate a CSV report of all override requests with their current statuses. Proceed?', function() {
+    // build CSV
+    var lines = ['Student,ID,Date,Requested Course,Reason,Status'];
+    document.querySelectorAll('#overrideBody tr').forEach(function(row) {
+      var cells = row.cells;
+      var studentCell = cells[0] ? cells[0].innerText.replace(/\n/g,', ').trim() : '';
+      var course = cells[1] ? cells[1].textContent.trim() : '';
+      var reason = cells[2] ? cells[2].textContent.trim() : '';
+      var status = row.dataset.status || 'Pending';
+      lines.push('"' + studentCell + '","' + (row.dataset.id||'') + '","","' + course + '","' + reason + '","' + status + '"');
+    });
+    var csv = lines.join('\n');
+    var blob = new Blob([csv], {type:'text/csv'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'override_report.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+// ─── INIT ───
+buildScheduleGrid();
+updateSelectedList();
+updateCredits();
+buildConfirmation();
+renderOverrideStats();
+// mark already-in-cart buttons on page load
+cart.forEach(function(c) {
+  var btn = document.getElementById('addbtn-' + c.id);
+  if (btn) { btn.textContent='Added ✓'; btn.className='btn btn-sm btn-success'; btn.disabled=true; }
+});
+</script>
+</body>
+</html>
