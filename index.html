@@ -400,7 +400,7 @@
       <div class="card">
         <div class="card-body">
           <h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Waitlist Statistics</h3>
-          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
             <div class="stat-box"><div class="stat-num" id="wlTotal">4</div><div class="stat-label">Total Waitlisted</div></div>
             <div class="stat-box"><div class="stat-num" id="wlHighProb">2</div><div class="stat-label">High Probability</div></div>
             <div class="stat-box"><div class="stat-num" id="wlAvgPos">5.75</div><div class="stat-label">Average Position</div></div>
@@ -563,7 +563,27 @@
       <div class="card">
         <div class="card-body">
           <h3 style="font-size:15px;font-weight:600;margin-bottom:12px">Request Statistics</h3>
-          <div id="statsGrid" class="stats-grid"></div>
+          <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="stat-box">
+            <div class="stat-num" id="overrideTotal"></div>
+            <div class="stat-label">Total Requests</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-num" id="overridePending"></div>
+            <div class="stat-label">Pending</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-num" id="overrideApproved"></div>
+            <div class="stat-label">Approved</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-num" id="overrideDenied"></div>
+            <div class="stat-label">Denied</div>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1124,7 +1144,17 @@ function denyOverride(id) {
   renderOverrideStats(); filterOverrides();
 }
 
+
 function renderOverrideStats() {
+  document.getElementById("overrideTotal").textContent = overrideTotal;
+  document.getElementById("overridePending").textContent = overridePending;
+  document.getElementById("overrideApproved").textContent = overrideApproved;
+  document.getElementById("overrideDenied").textContent = overrideDenied;
+}
+
+// If dynamic stats is needed.
+
+/* function renderOverrideStats() {
   var grid = document.getElementById('statsGrid');
   if (!grid) return;
   // always show Total, Pending, Approved; only show Denied if > 0
@@ -1135,7 +1165,7 @@ function renderOverrideStats() {
     + '<div class="stat-box"><div class="stat-num">' + overrideApproved + '</div><div class="stat-label">Approved</div></div>'
     + '<div class="stat-box"><div class="stat-num">' + overrideDenied + '</div><div class="stat-label">Denied</div></div>';
   grid.innerHTML = html;
-}
+}*/
 
 function filterOverrides() {
   var q = document.getElementById('overrideSearch').value.toLowerCase().trim();
