@@ -259,12 +259,12 @@
                   <td><button class="btn btn-sm" id="addbtn-cs201wl" onclick="joinWaitlist('CS 201',this)">Join Waitlist</button></td>
                 </tr>
                 <tr data-dept="MATH" data-time="MWF" data-cred="3" data-name="math 301 linear algebra" data-instructor="prof. williams" data-id="math301">
-                  <td>MATH 301 – Linear Algebra</td><td>Prof. Williams</td><td>MWF 13:00–14:00</td><td>3</td>
+                  <td>MATH 301 – Linear Algebra</td><td>Prof. Williams</td><td>MWF 1:00–2:00</td><td>3</td>
                   <td class="seats-ok">8/35</td>
                   <td><button class="btn btn-sm btn-dark" id="addbtn-math301" onclick="addCourse('MATH 301','MWF 13:00–14:00','Room 205','math301',this)">Add Course</button></td>
                 </tr>
                 <tr data-dept="PHYS" data-time="TTh" data-cred="4" data-name="phys 101 physics i" data-instructor="dr. brown" data-id="phys101">
-                  <td>PHYS 101 – Physics I</td><td>Dr. Brown</td><td>TTh 14:00–15:30</td><td>4</td>
+                  <td>PHYS 101 – Physics I</td><td>Dr. Brown</td><td>TTh 2:00–3:30</td><td>4</td>
                   <td class="seats-ok">22/40</td>
                   <td><button class="btn btn-sm btn-dark" id="addbtn-phys101" onclick="addCourse('PHYS 101','TTh 14:00–15:30','Lab A','phys101',this)">Add Course</button></td>
                 </tr>
@@ -279,12 +279,12 @@
                   <td><button class="btn btn-sm btn-dark" id="addbtn-bio301c" onclick="addCourse('BIO 301','TTh 9:30–11:00','BIO Lab 2','bio301c',this)">Add Course</button></td>
                 </tr>
                 <tr data-dept="MATH" data-time="TTh" data-cred="3" data-name="math 220 discrete mathematics" data-instructor="prof. chen" data-id="math220wl">
-                  <td>MATH 220 – Discrete Mathematics</td><td>Prof. Chen</td><td>TTh 13:00–14:30</td><td>3</td>
+                  <td>MATH 220 – Discrete Mathematics</td><td>Prof. Chen</td><td>TTh 1:00–12:30</td><td>3</td>
                   <td class="seats-full">0/25</td>
                   <td><button class="btn btn-sm" id="addbtn-math220wl" onclick="joinWaitlist('MATH 220',this)">Join Waitlist</button></td>
                 </tr>
                 <tr data-dept="CS" data-time="MWF" data-cred="3" data-name="cs 410 software engineering" data-instructor="prof. patel" data-id="cs410">
-                  <td>CS 410 – Software Engineering</td><td>Prof. Patel</td><td>MWF 14:00–15:00</td><td>3</td>
+                  <td>CS 410 – Software Engineering</td><td>Prof. Patel</td><td>MWF 2:00–3:00</td><td>3</td>
                   <td class="seats-ok">11/32</td>
                   <td><button class="btn btn-sm btn-dark" id="addbtn-cs410" onclick="addCourse('CS 410','MWF 14:00–15:00','ENG 310','cs410',this)">Add Course</button></td>
                 </tr>
@@ -608,15 +608,15 @@ var studentSchedules = {
     name: 'John Smith',
     courses: [
       {code:'CS 101', title:'Intro to Programming', time:'MWF 9:00–10:00', loc:'Room 101', cred:3},
-      {code:'MATH 301', title:'Linear Algebra', time:'MWF 13:00–14:00', loc:'Room 205', cred:3},
+      {code:'MATH 301', title:'Linear Algebra', time:'MWF 1:00–2:00', loc:'Room 205', cred:3},
       {code:'ENG 201', title:'English Composition', time:'MWF 10:00–11:00', loc:'Room 302', cred:3},
     ]
   },
   '23456': {
     name: 'Jane Doe',
     courses: [
-      {code:'PHYS 101', title:'Physics I', time:'TTh 14:00–15:30', loc:'Lab A', cred:4},
-      {code:'MATH 220', title:'Discrete Mathematics', time:'TTh 13:00–14:30', loc:'Room 110', cred:3},
+      {code:'PHYS 101', title:'Physics I', time:'TTh 2:00–3:30', loc:'Lab A', cred:4},
+      {code:'MATH 220', title:'Discrete Mathematics', time:'TTh 1:00–2:30', loc:'Room 110', cred:3},
       {code:'CS 101', title:'Intro to Programming', time:'MWF 9:00–10:00', loc:'Room 101', cred:3},
     ]
   },
@@ -624,7 +624,7 @@ var studentSchedules = {
     name: 'Michael Chen',
     courses: [
       {code:'BIO 301', title:'Molecular Biology', time:'TTh 9:30–11:00', loc:'BIO Lab 2', cred:3},
-      {code:'CS 410', title:'Software Engineering', time:'MWF 14:00–15:00', loc:'ENG 310', cred:3},
+      {code:'CS 410', title:'Software Engineering', time:'MWF 2:00–3:00', loc:'ENG 310', cred:3},
       {code:'ENG 201', title:'English Composition', time:'MWF 10:00–11:00', loc:'Room 302', cred:3},
     ]
   }
@@ -633,8 +633,8 @@ var studentSchedules = {
 // ─── CART ───
 var cart = [
   {code:'CS 101', time:'MWF 9:00–10:00', loc:'Room 101', id:'cs101'},
-  {code:'MATH 301', time:'MWF 13:00–14:00', loc:'Room 205', id:'math301'},
-  {code:'PHYS 101', time:'TTh 14:00–15:30', loc:'Lab A', id:'phys101'},
+  {code:'MATH 301', time:'MWF 1:00–2:00', loc:'Room 205', id:'math301'},
+  {code:'PHYS 101', time:'TTh 2:00–3:30', loc:'Lab A', id:'phys101'},
 ];
 
 // ─── OVERRIDE STATS ───
@@ -747,7 +747,7 @@ function savePlan(btn) {
 }
 
 // ─── SCHEDULE GRID ───
-var timeSlots = ['8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+var timeSlots = ['8:00','9:00','10:00','11:00','12:00','1:00','2:00','3:00','4:00','5:00'];
 var courseSlotMap = {
   'cs101':   {days:[0,2,4], startSlot:1, span:1, color:'cal-cs'},
   'math301': {days:[0,2,4], startSlot:5, span:1, color:'cal-math'},
